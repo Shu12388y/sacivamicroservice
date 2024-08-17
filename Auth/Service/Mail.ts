@@ -1,13 +1,15 @@
 import nodemailer from "nodemailer";
 
 let transport = nodemailer.createTransport({
-    host: "sandbox.smtp.mailtrap.io",
-    port: 2525,
-    auth: {
-        user: "0231b166b704b9",
-        pass: "eb73e7e3aed65e"
-    }
-});
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+   user: 'saciva08@gmail.com',
+   pass: 'xbbd mkoo whng gtzs',
+  },
+ });
 
 
 export const sendMail = async (otp: number, email: string) => {
@@ -15,8 +17,7 @@ export const sendMail = async (otp: number, email: string) => {
         const info = await transport.sendMail({
             from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
             to: `${email}`,
-            subject: "OTP", // Subject line
-            text: "Hello world?", // plain text body
+            subject: "Verification OTP", // Subject line
             html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" lang="en">
   <head>

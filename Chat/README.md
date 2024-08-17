@@ -1,4 +1,4 @@
-# findmates
+# chat
 
 To install dependencies:
 
