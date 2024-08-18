@@ -1,5 +1,5 @@
 # Base image: Use the official Ubuntu image
-FROM ubuntu:latest
+FROM ubuntu
 
 # Set working directory
 WORKDIR /app
@@ -16,15 +16,22 @@ RUN curl -fsSL https://bun.sh/install | bash
 ENV PATH="/root/.bun/bin:$PATH"
 
 # Copy package.json and install dependencies using Bun
+#
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get install -y nodejs
+
+
+RUN apt-get update && apt-get upgrade
+
 COPY package*.json ./
 RUN bun install
 
 # Copy the Prisma schema and generate the Prisma client
-COPY prisma ./prisma
+# COPY prisma ./prisma
 COPY . .
 
-# Copy the rest of the application code
-RUN bunx prisma generate
+RUN npx prisma generate
+
 
 # Expose the port the application runs on
 EXPOSE 3001

@@ -7,7 +7,7 @@ export const DashBoardRouter = Router();
 
 
 // create new user profile
-DashBoardRouter.post("/createuserprofile",UserProfile.createUserProfile);
+DashBoardRouter.post("/createuserprofile/:id",UserProfile.createUserProfile);
 
 // update user profile
 DashBoardRouter.put("/updateuserprofile",UserProfile.updateUserProfile)

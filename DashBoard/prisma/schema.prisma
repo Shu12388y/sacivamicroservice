@@ -1,13 +1,11 @@
 
 generator client {
   provider = "prisma-client-js"
-  output        = "../generated/client" //Change output to custom path
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  relationMode = "prisma"
 }
 
 
@@ -18,8 +16,8 @@ model UserPreference{
   ImageUrl String 
   age Int
   university String
-  starting DateTime
-  ending DateTime
+  starting String
+  ending String
   language String
   major String
   country String
@@ -33,4 +31,13 @@ model UserPreference{
   about String
   findmate Boolean @default(false)
   timstamp DateTime @default(now())
+  }
+
+
+  model Survey{
+    id Int @id @default(autoincrement())
+    email String @unique 
+    UniversityExp String 
+    MajorExp String
+    CityExp String
   }

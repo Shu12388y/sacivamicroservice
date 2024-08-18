@@ -4,44 +4,46 @@ import jwt, { type JwtPayload } from "jsonwebtoken";
 
 
 export class UserProfile{
-    static async createUserProfile(req:Request,res:Response){
-                    try {
-                        const userId = await req.params.id
-                        const {name,ImageUrl,age,university,language,major,country,foodPref,smoke, drink,exp,ambiance,tidiness,socalizing,about,start,end} = await req.body;
-                        if(![name && ImageUrl && age && university && language && major && country && foodPref && smoke && drink && exp && ambiance && tidiness && socalizing && about]){
-                            return res.json({message:"Every field are required"}).status(404)
-                        }
-
-                        await prisma.userPreference.create({
-                            data:{
-                               email:userId,
-                               name:name,
-                               ImageUrl:ImageUrl,
-                               age:age,
-                               university:university,
-                               starting:start,
-                               ending:end,
-                               language:language,
-                               major:major,
-                               country:country,
-                               foodPrefernce:foodPref,
-                               smoking:smoke,
-                               drinking:drink,
-                               expenditure:exp,
-                               ambiance:ambiance,
-                               tidiness:tidiness,
-                               socializing:socalizing,
-                               about:about 
-                            }
-                        })
-
-                        
-
-
-
-                    } catch (error) {
-                        
-                    }
+    static async createUserProfile(req: Request, res: Response) {
+        try {
+            const userId = req.params.id;
+     
+            const { name, ImageUrl, age, university, language, major, country, foodPref, smoke, drink, exp, ambiance, tidiness, socalizing, about, start, end } = req.body;
+            
+            if (!name || !ImageUrl || !age || !university || !language || !major || !country || !foodPref || !smoke || !drink || !exp || !ambiance || !tidiness || !socalizing || !about) {
+                return res.status(404).json({ message: "Every field is required" });
+            }
+        
+            await prisma.userPreference.create({
+                data: {
+                    email: userId,
+                    name: name,
+                    ImageUrl: ImageUrl,
+                    age: age,
+                    university: university,
+                    starting: start,
+                    ending: end,
+                    language: language,
+                    major: major,
+                    country: country,
+                    foodPrefernce: foodPref,
+                    smoking: smoke,
+                    drinking: drink,
+                    expenditure: exp,
+                    ambiance: ambiance,
+                    tidiness: tidiness,
+                    socializing: socalizing,
+                    about: about 
+                }
+            });
+           
+    
+            return res.status(200).json({ message: "Profile created" });
+    
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: error }).status(500);
+        }
     }
 
     static async updateFindmates(req:Request,res:Response){
